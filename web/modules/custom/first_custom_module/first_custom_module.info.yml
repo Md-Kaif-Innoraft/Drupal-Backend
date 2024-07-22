@@ -1,0 +1,6 @@
+name: First Custom Module
+package: custom
+description: This module is used to destroy all the existing works.
+
+type: module
+core_version_requirement: ^10 || ^11
