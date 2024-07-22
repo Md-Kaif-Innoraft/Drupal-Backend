@@ -1,0 +1,7 @@
+hello_world.content:
+  path: '/kaif'
+  defaults:
+    _controller: '\Drupal\hello_world\Controller\HelloWorldController::content'
+    _title: 'Hello World Module : This is from routing.yml'
+  requirements:
+    _permission: 'access content'

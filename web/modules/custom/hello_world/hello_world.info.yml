@@ -1,0 +1,6 @@
+name: 'Hello World'
+package: custom
+description: 'This module is hello world module for custom Permission.'
+
+type: module
+core_version_requirement: ^10 || ^11
