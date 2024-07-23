@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * @file
+ * Primary module hooks for the Node View Counter module.
+ */
+
+use Drupal\Core\Entity\EntityInterface;
+use Drupal\Core\Entity\Display\EntityViewDisplayInterface;
+
+/**
+ * Implements hook_entity_view().
+ * Counts the number of times a node has been viewed in a particular session.
+ *
+ * @param array $build
+ *   A render array representing the node content.
+ * @param EntityInterface $entity
+ *   The entity being viewed.
+ * @param EntityViewDisplayInterface $display
+ *   The display settings for the view mode.
+ * @param string $view_mode
+ *   The view mode in which the entity is being viewed.
+ *
+ * @return void
+ *   Returns nothing
+ */
+function node_view_count(array &$build, EntityInterface $entity, EntityViewDisplayInterface $display, $view_mode) {
+  // Check if the entity is a node.
+  if ($entity->getEntityTypeId() === 'node') {
+    // Get the current session.
+    $session = \Drupal::request()->getSession();
+    // Get the node ID.
+    $nid = $entity->id();
+    // Get the current count from the session.
+    $count = $session->get('node_view_count_' . $nid, 0);
+    // Increment the count.
+    $count++;
+    // Store the updated count back in the session.
+    $session->set('node_view_count_' . $nid, $count);
+    // Add the count to the node render array.
+    $build['view_count'] = [
+      '#markup' => '<p>' . t('This node has been viewed @count times in this session.', ['@count' => $count]) . '</p>',
+      '#weight' => 100,
+    ];
+    $messenger = \Drupal::messenger();
+    $messenger->addStatus(t('This node has been viewed @count times in this session.', ['@count' => $count]));
+
+    // Invoke custom hook for other modules to use.
+    \Drupal::moduleHandler()->invokeAll('node_view_count_entity_view', [&$build, $entity, $display, $view_mode]);
+  }
+}
