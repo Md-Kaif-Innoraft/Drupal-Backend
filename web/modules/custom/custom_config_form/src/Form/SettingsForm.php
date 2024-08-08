@@ -10,7 +10,7 @@ use Drupal\Core\Ajax\HtmlCommand;
 /**
  * Configure Custom config form settings for this site.
  */
-final class SettingsForm extends ConfigFormBase {
+class SettingsForm extends ConfigFormBase {
 
   /**
    * {@inheritdoc}

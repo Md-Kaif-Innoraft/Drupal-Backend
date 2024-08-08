@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Drupal\custom_config_form\Form;
 
 use Drupal\Core\Form\ConfigFormBase;
@@ -13,7 +11,7 @@ use Drupal\Core\Ajax\HtmlCommand;
 /**
  * Configure Custom config form settings for this site.
  */
-final class OtlMessageClass extends ConfigFormBase {
+class OtlMessageClass extends ConfigFormBase {
 
   /**
    * {@inheritdoc}
